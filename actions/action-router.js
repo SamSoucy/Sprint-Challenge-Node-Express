@@ -35,8 +35,8 @@ router.get('/:id', async (req, res) => {
 });
   
 router.post('/', async (req, res) => {
-    if (!req.body.project_id || !req.body.description) {
-      res.status(400).json({ errorMessage: "Please provide project id and description for the action." });
+    if (!req.body.project_id || !req.body.description || !req.body.notes) {
+      res.status(400).json({ errorMessage: "Please provide project_id, description and notes for the action." });
     } else {
       try {
         const action = await Actions.insert(req.body);
@@ -73,7 +73,7 @@ router.put('/:id', async (req, res) => {
       if (action) {
         res.status(200).json({message: 'This action has been Updated'});
       } else if(action) {
-        res.status(400).json({ errorMessage: "Please provide text for the action." });
+        res.status(400).json({ errorMessage: "Please provide project_id, decription, and notes for the action." });
       } else {
         res.status(404).json({ message: "The action with the specified ID does not exist." });
       }

@@ -73,7 +73,7 @@ router.put('/:id', async (req, res) => {
     if (project) {
       res.status(200).json({message: 'This project has been Updated'});
     } else if(project) {
-      res.status(400).json({ errorMessage: "Please provide text for the project." });
+      res.status(400).json({ errorMessage: "Please provide name and description for the project." });
     } else {
       res.status(404).json({ message: "The project with the specified ID does not exist." });
     }
