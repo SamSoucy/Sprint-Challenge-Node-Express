@@ -5,7 +5,7 @@ const Projects = require("../data/helpers/projectModel")
 const router = express.Router();
 
 
-
+//**********to retrieve a list of projects****************//
 router.get('/', async (req, res) => {
     try {
       const projects = await Projects.get();
@@ -17,6 +17,8 @@ router.get('/', async (req, res) => {
       });
     }
 });
+
+//***********get projects by id************************//
 router.get('/:id', async (req, res) => {
   try {
     const project = await Projects.get(req.params.id);
@@ -33,6 +35,26 @@ router.get('/:id', async (req, res) => {
     });
   }
 });
+
+//*********** Uses project_id to return a list of all the actions for that project************************//
+
+router.get("/:id/actions", async (req, res) => {
+  try {
+    const project = await Projects.getProjectActions(req.params.id);
+    if (project) {
+      res.status(200).json(project);
+    } else {
+      res.status(404).json({ message: "The project with the specified ID does not exist." });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "The project information could not be retrieved.",
+    });
+  }
+})
+
+//*************add a project*****************//
 
 router.post('/', async (req, res) => {
   if (!req.body.name || !req.body.description) {
@@ -51,6 +73,8 @@ router.post('/', async (req, res) => {
   }
 });
 
+//*********************delete a project**********************//
+
 router.delete('/:id', async (req, res) => {
   try {
     const project = await Projects.remove(req.params.id);
@@ -67,6 +91,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+//************update a project*****************//
 router.put('/:id', async (req, res) => {
   try {
     const project = await Projects.update(req.params.id, req.body);

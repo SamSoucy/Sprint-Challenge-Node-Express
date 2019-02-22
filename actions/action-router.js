@@ -4,6 +4,7 @@ const Actions = require("../data/helpers/actionModel")
 
 const router = express.Router();
 
+//**********to retrieve a list of actions****************/
 
 router.get('/', async (req, res) => {
     try {
@@ -17,6 +18,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+//***********get actions by id************************/
 router.get('/:id', async (req, res) => {
     try {
       const action = await Actions.get(req.params.id);
@@ -33,6 +35,8 @@ router.get('/:id', async (req, res) => {
       });
     }
 });
+
+//*************add an action*****************/
   
 router.post('/', async (req, res) => {
     if (!req.body.project_id || !req.body.description || !req.body.notes) {
@@ -50,6 +54,8 @@ router.post('/', async (req, res) => {
       }
     }
 });
+
+//*********************delete an action**********************/
   
 router.delete('/:id', async (req, res) => {
     try {
@@ -66,6 +72,8 @@ router.delete('/:id', async (req, res) => {
       });
     }
 });
+
+//************update an action*****************/
   
 router.put('/:id', async (req, res) => {
     try {
