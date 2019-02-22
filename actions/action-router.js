@@ -65,6 +65,24 @@ router.delete('/:id', async (req, res) => {
         error: "The action could not be removed" ,
       });
     }
+});
+  
+router.put('/:id', async (req, res) => {
+    try {
+      const action = await Actions.update(req.params.id, req.body);
+      if (action) {
+        res.status(200).json({message: 'This action has been Updated'});
+      } else if(action) {
+        res.status(400).json({ errorMessage: "Please provide text for the action." });
+      } else {
+        res.status(404).json({ message: "The action with the specified ID does not exist." });
+      }
+  } catch (error) {
+    console.log(error);
+      res.status(500).json({
+         error: "The action information could not be modified."
+      });
+    };
   });
 
 module.exports = router;
