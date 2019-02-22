@@ -32,6 +32,23 @@ router.get('/:id', async (req, res) => {
         error: "The action information could not be retrieved.",
       });
     }
+});
+  
+router.post('/', async (req, res) => {
+    if (!req.body.project_id || !req.body.description) {
+      res.status(400).json({ errorMessage: "Please provide project id and description for the action." });
+    } else {
+      try {
+        const action = await Actions.insert(req.body);
+        res.status(201).json(action);
+      
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({
+          error: "There was an error while saving the action to the database",
+        });
+      }
+    }
   });
 
 module.exports = router;
