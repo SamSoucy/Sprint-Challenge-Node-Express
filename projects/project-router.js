@@ -17,22 +17,23 @@ router.get('/', async (req, res) => {
       });
     }
 });
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const project = await Projects.getById(req.params.id);
+router.get('/:id', async (req, res) => {
+  try {
+    const project = await Projects.get(req.params.id);
 
-//     if (project.length !== 0) {
-//       res.status(200).json(project);
-//     } else {
-//       res.status(404).json({ message: "The post with the specified ID does not exist."  });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       error: "The project information could not be retrieved.",
-//     });
-//   }
-// });
+    if (project.length !== 0) {
+      res.status(200).json(project);
+    } else {
+      res.status(404).json({ message: "The project with the specified ID does not exist."  });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "The project information could not be retrieved.",
+    });
+  }
+});
+
 
 
 
